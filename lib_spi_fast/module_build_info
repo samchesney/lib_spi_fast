@@ -1,0 +1,3 @@
+VERSION = 0.0.1
+
+XCC_FLAGS_spi_fast.xc = -O2
