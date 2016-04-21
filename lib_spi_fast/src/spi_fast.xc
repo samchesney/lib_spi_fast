@@ -1,31 +1,6 @@
 // Copyright (c) 2016, XMOS Ltd, All rights reserved
 #include "spi_fast.h"
 #include <xclib.h>
-#include <print.h>
-// Super fast prototype, only works with CS on a 1-bit port
-// void spi_fast_init(spi_fast_ports &p) {
-
-//     stop_clock(p.cb);
-//     configure_clock_ref(p.cb, 1);
-//     configure_port_clock_output(p.clk, p.cb);
-//     set_port_inv(p.clk);
-//     configure_in_port(p.miso, p.cb);
-//     configure_out_port_strobed_master(p.mosi, p.cs, p.cb, 0);
-//     start_clock(p.cb);
-// }
-
-// void spi_fast(unsigned bytes, char buffer[], spi_fast_ports &p) {
-//     p.mosi <: buffer[0];
-//     for(unsigned i=1;i<bytes;i++){
-//         p.mosi <: buffer[i];
-//         p.miso :> buffer[i-1];
-//     }
-//     p.miso :> buffer[bytes-1];
-// }
-
-#define HARD_CODED_CS_VALUES   1
-#define HARD_CODED_CS_ASSERT   0xE
-#define HARD_CODED_CS_DEASSERT 0xF
 
 static unsigned compute_port_ticks(unsigned nanoseconds, unsigned clock_divide) {
     // Default clock tick is the reference clock, if divided then it is scaled by
@@ -79,10 +54,8 @@ void spi_fast_init(spi_fast_ports &p){
     stop_clock(p.cb);
     configure_clock_ref(p.cb, p.clock_divide);
     configure_out_port(p.clk, p.cb, 0xFFFFFFFF);
-    // set_port_inv(p.clk);
     configure_in_port(p.miso, p.cb);
     configure_out_port(p.mosi, p.cb, 0);
-    // configure_out_port(p.cs, p.cb, 1);
     set_port_clock(p.cs, p.cb);
     start_clock(p.cb);
     drive_cs_port_now(p, p.cs_port_bit, 1);
