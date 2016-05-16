@@ -11,7 +11,7 @@ spi_fast_ports spi_ports = {
     on tile[1]: XS1_PORT_4E,
     0, // CS on bit 0 of port 4E
     on tile[1]: XS1_CLKBLK_3,
-    1, // 100/12
+    1, // 100/4 (2*2n)
     1000,
     0
 };
