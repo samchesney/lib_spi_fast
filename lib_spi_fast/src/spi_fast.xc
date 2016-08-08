@@ -96,9 +96,9 @@ void spi_fast(unsigned num_bytes, char *buffer, spi_fast_ports &p, spi_direction
         {buffer[i-1], void} = unzip(tmp >> 16, 0);
     }
 
-    delay_microseconds(10); // Makes BCM Wifi work better... TODO: make configurable
+    delay_microseconds(10); // Makes some devices work better... TODO: make configurable
     drive_cs_port_now(p, p.cs_port_bit, 1);
-    delay_microseconds(5); // Makes BCM Wifi work better... TODO: make configurable
+    delay_microseconds(5); // Makes some devices work better... TODO: make configurable
 
     // Prepare the received data
     // TODO: optimise the data reversal
