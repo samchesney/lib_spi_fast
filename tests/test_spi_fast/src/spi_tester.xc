@@ -28,7 +28,7 @@ void test_spi_fast() {
         for (unsigned i=0; i  <BUF_LEN; i++) {
             buf[i] = count++;
         }
-        spi_fast(BUF_LEN, buf, spi_ports);
+        spi_fast(BUF_LEN, buf, spi_ports, SPI_WRITE);
         delay_milliseconds(10);
         printstr("sent\n");
     }
